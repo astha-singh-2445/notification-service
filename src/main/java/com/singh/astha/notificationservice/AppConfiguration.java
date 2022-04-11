@@ -19,11 +19,12 @@ import java.util.Arrays;
 
 @Configuration
 public class AppConfiguration {
+
     private static final String MESSAGING_SCOPE = "https://www.googleapis.com/auth/firebase.messaging";
-    private static final String[] SCOPES = { MESSAGING_SCOPE };
+    private static final String[] SCOPES = {MESSAGING_SCOPE};
 
     @Bean
-    public NewTopic ingestionTopic(){
+    public NewTopic ingestionTopic() {
         return TopicBuilder.name("notification_ingestion").partitions(8).replicas(1).build();
     }
 
@@ -44,7 +45,7 @@ public class AppConfiguration {
 
     @Bean
     public GoogleCredentials getGoogleCredential() throws IOException {
-        return  GoogleCredentials
+        return GoogleCredentials
                 .fromStream(new FileInputStream("medicine-b627f-firebase-adminsdk-d468k-d62bff6970.json"))
                 .createScoped(Arrays.asList(SCOPES));
 //        googleCredentials.refresh();

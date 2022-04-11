@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserTokenService {
+
     private final UserTokenRepository userTokenRepository;
 
     public UserTokenService(UserTokenRepository userTokenRepository) {

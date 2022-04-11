@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 public class UserTokenRequestDto {
+
     @NotNull
     @Min(0)
     private Long userId;

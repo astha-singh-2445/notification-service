@@ -17,8 +17,8 @@ public class UserTokenController {
         this.userTokenService = userTokenService;
     }
 
-    @PostMapping(value="/user")
-    public ResponseEntity<UserTokenResponseDto> getUserToken(@RequestBody UserTokenRequestDto userTokenDto){
+    @PostMapping(value = "/user")
+    public ResponseEntity<UserTokenResponseDto> getUserToken(@RequestBody UserTokenRequestDto userTokenDto) {
         return ResponseEntity.ok().body(userTokenService.saveUserToken(userTokenDto));
     }
 }

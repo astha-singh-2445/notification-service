@@ -2,14 +2,11 @@ package com.singh.astha.notificationservice.service;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.singh.astha.notificationservice.utils.Constants;
-
-import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,10 +30,10 @@ public class FCMService {
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> message = new HashMap<>();
         Map<String, Object> notification = new HashMap<>();
-        notification.put("title","FCM Message springboot");
-        notification.put("body","This is an astha");
-        message.put("notification",notification);
-        message.put("token","elxqIYmhTju1WWpYPtP_-3:APA91bGEtqU-EQHExSjztJpqka9KX_6BDYj0-XaqpKnlsHli1NE" +
+        notification.put("title", "FCM Message springboot");
+        notification.put("body", "This is an astha");
+        message.put("notification", notification);
+        message.put("token", "elxqIYmhTju1WWpYPtP_-3:APA91bGEtqU-EQHExSjztJpqka9KX_6BDYj0-XaqpKnlsHli1NE" +
                 "-I0oLRo_PcQeJrd_9IvQnBpwE2D7KJyDa5xzZ0yooE7ebei43nkvTJ4c-uCOyBSgUrJvehOu-fccbkAolPTUzFO0k");
         data.put("message", message);
 
