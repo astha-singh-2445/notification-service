@@ -1,6 +1,9 @@
 package com.singh.astha.notificationservice.service;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.singh.astha.notificationservice.dtos.kafka.NotificationRequest;
+import com.singh.astha.notificationservice.model.UserToken;
+import com.singh.astha.notificationservice.repositories.UserTokenRepository;
 import com.singh.astha.notificationservice.utils.Constants;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,24 +20,27 @@ public class FCMService {
 
     private final GoogleCredentials googleCredentials;
     private final WebClient webClient;
+    private final UserTokenRepository userTokenRepository;
 
     public FCMService(GoogleCredentials googleCredentials,
-                      WebClient webClient) {
+                      WebClient webClient,
+                      UserTokenRepository userTokenRepository) {
         this.googleCredentials = googleCredentials;
         this.webClient = webClient;
+        this.userTokenRepository = userTokenRepository;
     }
 
-    public String sendNotification(String value) throws IOException {
+    public String sendNotification(NotificationRequest notificationRequest) throws IOException {
         String accessToken = Constants.getAccessToken(googleCredentials);
+        UserToken userToken = userTokenRepository.findByUserId(notificationRequest.getUserId());
 
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> message = new HashMap<>();
         Map<String, Object> notification = new HashMap<>();
-        notification.put("title", "FCM Message springboot");
-        notification.put("body", "This is an astha");
+        notification.put("title", "Your Medicine is ended");
+        notification.put("body", notificationRequest.getMedicineName()+"is ended");
         message.put("notification", notification);
-        message.put("token", "elxqIYmhTju1WWpYPtP_-3:APA91bGEtqU-EQHExSjztJpqka9KX_6BDYj0-XaqpKnlsHli1NE" +
-                "-I0oLRo_PcQeJrd_9IvQnBpwE2D7KJyDa5xzZ0yooE7ebei43nkvTJ4c-uCOyBSgUrJvehOu-fccbkAolPTUzFO0k");
+        message.put("token", userToken.getUserToken());
         data.put("message", message);
 
         webClient.post()

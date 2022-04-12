@@ -5,4 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserTokenRepository extends MongoRepository<UserToken, String> {
 
+    UserToken findByUserId(Long userId);
 }
