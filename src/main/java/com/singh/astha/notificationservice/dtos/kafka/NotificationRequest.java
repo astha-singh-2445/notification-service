@@ -12,6 +12,6 @@ import lombok.Setter;
 public class NotificationRequest {
 
     private Long userId;
-    private String medicineName;
+    private String notificationData;
 
 }

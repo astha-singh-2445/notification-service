@@ -1,6 +1,7 @@
 package com.singh.astha.notificationservice;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.singh.astha.notificationservice.constants.Constant;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,17 +21,16 @@ import java.util.Arrays;
 @Configuration
 public class AppConfiguration {
 
-    private static final String MESSAGING_SCOPE = "https://www.googleapis.com/auth/firebase.messaging";
-    private static final String[] SCOPES = {MESSAGING_SCOPE};
+    private static final String[] SCOPES = {Constant.MESSAGING_SCOPE};
 
     @Bean
     public NewTopic ingestionTopic() {
-        return TopicBuilder.name("notification_ingestion").partitions(8).replicas(1).build();
+        return TopicBuilder.name(Constant.NOTIFICATION_INGESTION).partitions(8).replicas(1).build();
     }
 
     @Bean
     public WebClient getWebClient() {
-        ConnectionProvider provider = ConnectionProvider.builder("fixed")
+        ConnectionProvider provider = ConnectionProvider.builder(Constant.FIXED)
                 .maxConnections(500)
                 .maxIdleTime(Duration.ofSeconds(20))
                 .maxLifeTime(Duration.ofSeconds(60))
@@ -46,10 +46,8 @@ public class AppConfiguration {
     @Bean
     public GoogleCredentials getGoogleCredential() throws IOException {
         return GoogleCredentials
-                .fromStream(new FileInputStream("medicine-b627f-firebase-adminsdk-d468k-d62bff6970.json"))
+                .fromStream(new FileInputStream(Constant.FIREBASE_PRIVATE_KEY_JSON))
                 .createScoped(Arrays.asList(SCOPES));
-//        googleCredentials.refresh();
-//        return googleCredentials.getAccessToken().getTokenValue();
     }
 
 }

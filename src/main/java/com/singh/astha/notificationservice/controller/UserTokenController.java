@@ -6,9 +6,11 @@ import com.singh.astha.notificationservice.service.UserTokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/token")
 public class UserTokenController {
 
     private final UserTokenService userTokenService;
@@ -17,7 +19,7 @@ public class UserTokenController {
         this.userTokenService = userTokenService;
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping()
     public ResponseEntity<UserTokenResponseDto> getUserToken(@RequestBody UserTokenRequestDto userTokenDto) {
         return ResponseEntity.ok().body(userTokenService.saveUserToken(userTokenDto));
     }
