@@ -4,18 +4,15 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("user_token")
+@Document("notification_template")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserToken {
+public class NotificationTemplate {
 
     @Id
     private String id;
-    private Long userId;
-    private String userToken;
-
-
+    private String template;
 }
