@@ -15,4 +15,7 @@ public class Constant {
     public static final String NOTIFICATION = "notification";
     public static final String TOKEN = "token";
     public static final String MESSAGE = "message";
+    public static final String TEMPLATE_IS_NOT_PRESENT = "Template is not present";
+    public static final String NOTIFICATION_SUCCESSFULLY_SENT = "Notification Successfully sent";
+    public static final String USER_TOKEN_NOT_EXIST = "User Token not exist";
 }
