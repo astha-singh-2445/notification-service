@@ -2,9 +2,9 @@ package com.singh.astha.notificationservice.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.singh.astha.notificationservice.constants.Constant;
 import com.singh.astha.notificationservice.dtos.kafka.NotificationRequest;
 import com.singh.astha.notificationservice.service.FCMService;
+import com.singh.astha.notificationservice.utils.Constant;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.RestController;
 

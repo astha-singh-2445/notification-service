@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -16,6 +15,6 @@ public class NotificationRequest {
 
     private Long userId;
     private String templateId;
-    private HashMap<String,String> placeHolder;
+    private HashMap<String, String> placeHolder;
 
 }

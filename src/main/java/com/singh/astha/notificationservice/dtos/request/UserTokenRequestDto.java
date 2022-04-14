@@ -3,8 +3,8 @@ package com.singh.astha.notificationservice.dtos.request;
 import lombok.*;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +16,5 @@ public class UserTokenRequestDto {
     @NotNull
     @Min(0)
     private Long userId;
-    @NotBlank
-    private String userToken;
+    private List<Object> userToken;
 }

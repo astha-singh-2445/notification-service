@@ -1,14 +1,15 @@
 package com.singh.astha.notificationservice.service.impl;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.singh.astha.notificationservice.constants.Constant;
 import com.singh.astha.notificationservice.dtos.kafka.NotificationRequest;
+import com.singh.astha.notificationservice.exceptions.ResponseException;
 import com.singh.astha.notificationservice.model.NotificationTemplate;
 import com.singh.astha.notificationservice.model.UserToken;
 import com.singh.astha.notificationservice.repositories.NotificationTemplateRepository;
 import com.singh.astha.notificationservice.repositories.UserTokenRepository;
 import com.singh.astha.notificationservice.service.FCMService;
-import com.singh.astha.notificationservice.utils.Constants;
+import com.singh.astha.notificationservice.utils.Constant;
+import com.singh.astha.notificationservice.utils.ErrorMessage;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -42,15 +42,19 @@ public class FCMServiceImpl implements FCMService {
     }
 
     public String sendNotification(NotificationRequest notificationRequest) {
-        String accessToken = Constants.getAccessToken(googleCredentials);
-        UserToken userToken = userTokenRepository.findByUserId(notificationRequest.getUserId());
+        String accessToken = Constant.getAccessToken(googleCredentials);
+        Optional<UserToken> userTokenOptional = userTokenRepository.findByUserId(notificationRequest.getUserId());
+        if (userTokenOptional.isEmpty()) {
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessage.USER_TOKEN_NOT_EXIST);
+        }
+        UserToken userToken = userTokenOptional.get();
         Optional<NotificationTemplate> notificationTemplateOptional =
                 notificationTemplateRepository.findById(notificationRequest.getTemplateId());
-        if(!notificationTemplateOptional.isPresent()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Template is not present");
+        if (notificationTemplateOptional.isEmpty()) {
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessage.TEMPLATE_IS_NOT_PRESENT);
         }
         NotificationTemplate notificationTemplate = notificationTemplateOptional.get();
-        Map<String, Object> data = getNotificationBody(notificationRequest, userToken,notificationTemplate);
+        Map<String, Object> data = getNotificationBody(notificationRequest, userToken, notificationTemplate);
         webClient.post()
                 .uri(Constant.GOOGLE_API, 1L)
                 .accept(MediaType.APPLICATION_JSON)
@@ -63,7 +67,7 @@ public class FCMServiceImpl implements FCMService {
                     return res.bodyToMono(String.class);
                 }).block();
 
-        return "Notification Successfully sent";
+        return Constant.NOTIFICATION_SUCCESSFULLY_SENT;
     }
 
     private Map<String, Object> getNotificationBody(NotificationRequest notificationRequest, UserToken userToken,
@@ -71,8 +75,9 @@ public class FCMServiceImpl implements FCMService {
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> message = new HashMap<>();
         Map<String, Object> notification = new HashMap<>();
-        notification.put(Constant.TITLE, "Your Medicine is ended");
-        String body = StringSubstitutor.replace(notificationTemplate.getTemplate(), notificationRequest.getPlaceHolder(), "{",
+        notification.put(Constant.TITLE, "Medicine Reminder");
+        String body = StringSubstitutor.replace(notificationTemplate.getTemplate(),
+                notificationRequest.getPlaceHolder(), "{",
                 "}");
         notification.put(Constant.BODY, body);
         message.put(Constant.NOTIFICATION, notification);

@@ -10,6 +10,7 @@ public class UserDtoTransformer {
 
     public UserTokenResponseDto convertUserTokenToUserTokenResponseDto(UserToken userToken) {
         return UserTokenResponseDto.builder()
+                .id(userToken.getId())
                 .userId(userToken.getUserId())
                 .userToken(userToken.getUserToken())
                 .build();

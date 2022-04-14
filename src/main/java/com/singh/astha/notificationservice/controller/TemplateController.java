@@ -2,6 +2,7 @@ package com.singh.astha.notificationservice.controller;
 
 import com.singh.astha.notificationservice.dtos.request.NotificationTemplateRequestDto;
 import com.singh.astha.notificationservice.dtos.response.NotificationTemplateResponseDto;
+import com.singh.astha.notificationservice.dtos.response.ResponseWrapper;
 import com.singh.astha.notificationservice.service.NotificationTemplateService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +24,10 @@ public class TemplateController {
     }
 
     @PostMapping
-    public ResponseEntity<NotificationTemplateResponseDto> saveTemplate(
+    public ResponseEntity<ResponseWrapper<NotificationTemplateResponseDto>> saveTemplate(
             @Valid @RequestBody NotificationTemplateRequestDto notificationTemplateRequestDto) {
         return ResponseEntity.ok()
-                .body(notificationTemplateService.saveNotificationTemplate(notificationTemplateRequestDto));
+                .body(ResponseWrapper.success(
+                        notificationTemplateService.saveNotificationTemplate(notificationTemplateRequestDto)));
     }
 }

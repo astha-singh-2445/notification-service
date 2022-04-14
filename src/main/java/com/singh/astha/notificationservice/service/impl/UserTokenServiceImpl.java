@@ -3,10 +3,16 @@ package com.singh.astha.notificationservice.service.impl;
 import com.singh.astha.notificationservice.dtos.request.UserTokenRequestDto;
 import com.singh.astha.notificationservice.dtos.response.UserTokenResponseDto;
 import com.singh.astha.notificationservice.dtos.transformers.UserDtoTransformer;
+import com.singh.astha.notificationservice.exceptions.ResponseException;
 import com.singh.astha.notificationservice.model.UserToken;
 import com.singh.astha.notificationservice.repositories.UserTokenRepository;
 import com.singh.astha.notificationservice.service.UserTokenService;
+import com.singh.astha.notificationservice.utils.ErrorMessage;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserTokenServiceImpl implements UserTokenService {
@@ -22,7 +28,15 @@ public class UserTokenServiceImpl implements UserTokenService {
 
     @Override
     public UserTokenResponseDto saveUserToken(UserTokenRequestDto userTokenRequestDto) {
-        UserToken userToken = userDtoTransformer.convertUserTokenRequestDtoToUserToken(userTokenRequestDto);
+        Optional<UserToken> userTokenOptional = userTokenRepository.findByUserId(userTokenRequestDto.getUserId());
+        UserToken userToken=new UserToken();
+        if (userTokenOptional.isPresent()) {
+            userToken = userTokenOptional.get();
+            userToken.setUserToken(userTokenRequestDto.getUserToken());
+        }
+        else {
+            userToken = userDtoTransformer.convertUserTokenRequestDtoToUserToken(userTokenRequestDto);
+        }
         userToken = userTokenRepository.save(userToken);
         return userDtoTransformer.convertUserTokenToUserTokenResponseDto(userToken);
     }

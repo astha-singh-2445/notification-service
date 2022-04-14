@@ -2,15 +2,17 @@ package com.singh.astha.notificationservice.controller;
 
 import com.singh.astha.notificationservice.dtos.kafka.NotificationRequest;
 import com.singh.astha.notificationservice.dtos.request.UserTokenRequestDto;
+import com.singh.astha.notificationservice.dtos.response.ResponseWrapper;
 import com.singh.astha.notificationservice.dtos.response.UserTokenResponseDto;
+import com.singh.astha.notificationservice.exceptions.ResponseException;
 import com.singh.astha.notificationservice.service.FCMService;
 import com.singh.astha.notificationservice.service.UserTokenService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/token")
@@ -26,8 +28,9 @@ public class UserTokenController {
     }
 
     @PostMapping()
-    public ResponseEntity<UserTokenResponseDto> getUserToken(@Valid @RequestBody UserTokenRequestDto userTokenDto) {
-        return ResponseEntity.ok().body(userTokenService.saveUserToken(userTokenDto));
+    public ResponseEntity<ResponseWrapper<UserTokenResponseDto>> getUserToken(
+            @Valid @RequestBody UserTokenRequestDto userTokenDto) {
+        return ResponseEntity.ok().body(ResponseWrapper.success(userTokenService.saveUserToken(userTokenDto)));
     }
 
     @GetMapping()
@@ -38,7 +41,11 @@ public class UserTokenController {
         HashMap<String, String> values = new HashMap<>();
         values.put("medicine-name", "Paracetamol");
         notificationRequest.setPlaceHolder(values);
-        fcmService.sendNotification(notificationRequest);
+        try {
+            fcmService.sendNotification(notificationRequest);
+        } catch (Exception e) {
+            throw new ResponseException(HttpStatus.BAD_REQUEST, "Not able to send notification");
+        }
         return "Success";
     }
 

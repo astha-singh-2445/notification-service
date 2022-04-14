@@ -1,4 +1,8 @@
-package com.singh.astha.notificationservice.constants;
+package com.singh.astha.notificationservice.utils;
+
+import com.google.auth.oauth2.GoogleCredentials;
+
+import java.io.IOException;
 
 public class Constant {
 
@@ -15,7 +19,17 @@ public class Constant {
     public static final String NOTIFICATION = "notification";
     public static final String TOKEN = "token";
     public static final String MESSAGE = "message";
-    public static final String TEMPLATE_IS_NOT_PRESENT = "Template is not present";
     public static final String NOTIFICATION_SUCCESSFULLY_SENT = "Notification Successfully sent";
-    public static final String USER_TOKEN_NOT_EXIST = "User Token not exist";
+
+    public static final String OK = "OK";
+
+    public static String getAccessToken(GoogleCredentials googleCredentials) {
+        try {
+            googleCredentials.refreshIfExpired();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return googleCredentials.getAccessToken().getTokenValue();
+    }
+
 }

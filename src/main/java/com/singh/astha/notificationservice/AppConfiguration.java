@@ -1,7 +1,7 @@
 package com.singh.astha.notificationservice;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.singh.astha.notificationservice.constants.Constant;
+import com.singh.astha.notificationservice.utils.Constant;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
