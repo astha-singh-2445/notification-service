@@ -54,23 +54,26 @@ public class FCMServiceImpl implements FCMService {
             throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessage.TEMPLATE_IS_NOT_PRESENT);
         }
         NotificationTemplate notificationTemplate = notificationTemplateOptional.get();
-        Map<String, Object> data = getNotificationBody(notificationRequest, userToken, notificationTemplate);
-        webClient.post()
-                .uri(Constant.GOOGLE_API, 1L)
-                .accept(MediaType.APPLICATION_JSON)
-                .header(HttpHeaders.AUTHORIZATION, Constant.BEARER + accessToken)
-                .body(BodyInserters.fromValue(data))
-                .exchangeToMono(res -> {
-                    if (res.statusCode().isError()) {
-                        return res.createException().flatMap(Mono::error);
-                    }
-                    return res.bodyToMono(String.class);
-                }).block();
+        userToken.getUserToken().forEach(token ->{
+            Map<String, Object> data = getNotificationBody(notificationRequest, token, notificationTemplate);
+            webClient.post()
+                    .uri(Constant.GOOGLE_API, 1L)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .header(HttpHeaders.AUTHORIZATION, Constant.BEARER + accessToken)
+                    .body(BodyInserters.fromValue(data))
+                    .exchangeToMono(res -> {
+                        if (res.statusCode().isError()) {
+                            return res.createException().flatMap(Mono::error);
+                        }
+                        return res.bodyToMono(String.class);
+                    }).block();
+        });
+
 
         return Constant.NOTIFICATION_SUCCESSFULLY_SENT;
     }
 
-    private Map<String, Object> getNotificationBody(NotificationRequest notificationRequest, UserToken userToken,
+    private Map<String, Object> getNotificationBody(NotificationRequest notificationRequest, Object userToken,
                                                     NotificationTemplate notificationTemplate) {
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> message = new HashMap<>();
@@ -81,7 +84,7 @@ public class FCMServiceImpl implements FCMService {
                 "}");
         notification.put(Constant.BODY, body);
         message.put(Constant.NOTIFICATION, notification);
-        message.put(Constant.TOKEN, userToken.getUserToken());
+        message.put(Constant.TOKEN, userToken);
         data.put(Constant.MESSAGE, message);
         return data;
     }
