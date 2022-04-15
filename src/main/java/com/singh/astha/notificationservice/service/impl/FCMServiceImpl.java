@@ -4,6 +4,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.singh.astha.notificationservice.dtos.kafka.NotificationRequest;
 import com.singh.astha.notificationservice.exceptions.ResponseException;
 import com.singh.astha.notificationservice.model.NotificationTemplate;
+import com.singh.astha.notificationservice.model.Token;
 import com.singh.astha.notificationservice.model.UserToken;
 import com.singh.astha.notificationservice.repositories.NotificationTemplateRepository;
 import com.singh.astha.notificationservice.repositories.UserTokenRepository;
@@ -73,7 +74,7 @@ public class FCMServiceImpl implements FCMService {
         return Constant.NOTIFICATION_SUCCESSFULLY_SENT;
     }
 
-    private Map<String, Object> getNotificationBody(NotificationRequest notificationRequest, Object userToken,
+    private Map<String, Object> getNotificationBody(NotificationRequest notificationRequest, Token userToken,
                                                     NotificationTemplate notificationTemplate) {
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> message = new HashMap<>();
@@ -84,7 +85,7 @@ public class FCMServiceImpl implements FCMService {
                 "}");
         notification.put(Constant.BODY, body);
         message.put(Constant.NOTIFICATION, notification);
-        message.put(Constant.TOKEN, userToken);
+        message.put(Constant.TOKEN, userToken.getUserToken());
         data.put(Constant.MESSAGE, message);
         return data;
     }

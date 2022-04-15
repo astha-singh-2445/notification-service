@@ -16,5 +16,5 @@ public class UserTokenRequestDto {
     @NotNull
     @Min(0)
     private Long userId;
-    private List<Object> userToken;
+    private String userToken;
 }
