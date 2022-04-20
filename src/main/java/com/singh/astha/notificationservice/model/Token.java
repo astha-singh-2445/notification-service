@@ -12,6 +12,7 @@ import lombok.Setter;
 public class Token {
 
     private Long createdAt;
-    private String userToken;
+    private String notificationToken;
+    private String deviceType;
 
 }

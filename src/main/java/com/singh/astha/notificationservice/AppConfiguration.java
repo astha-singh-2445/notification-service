@@ -1,7 +1,7 @@
 package com.singh.astha.notificationservice;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.singh.astha.notificationservice.utils.Constant;
+import com.singh.astha.notificationservice.utils.Constants;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,16 +21,16 @@ import java.util.Arrays;
 @Configuration
 public class AppConfiguration {
 
-    private static final String[] SCOPES = {Constant.MESSAGING_SCOPE};
+    private static final String[] SCOPES = {Constants.MESSAGING_SCOPE};
 
     @Bean
     public NewTopic ingestionTopic() {
-        return TopicBuilder.name(Constant.NOTIFICATION_INGESTION).partitions(8).replicas(1).build();
+        return TopicBuilder.name(Constants.NOTIFICATION_INGESTION).partitions(8).replicas(1).build();
     }
 
     @Bean
     public WebClient getWebClient() {
-        ConnectionProvider provider = ConnectionProvider.builder(Constant.FIXED)
+        ConnectionProvider provider = ConnectionProvider.builder(Constants.FIXED)
                 .maxConnections(500)
                 .maxIdleTime(Duration.ofSeconds(20))
                 .maxLifeTime(Duration.ofSeconds(60))
@@ -46,7 +46,7 @@ public class AppConfiguration {
     @Bean
     public GoogleCredentials getGoogleCredential() throws IOException {
         return GoogleCredentials
-                .fromStream(new FileInputStream(Constant.FIREBASE_PRIVATE_KEY_JSON))
+                .fromStream(new FileInputStream(Constants.FIREBASE_PRIVATE_KEY_JSON))
                 .createScoped(Arrays.asList(SCOPES));
     }
 

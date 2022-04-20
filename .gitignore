@@ -35,4 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
-medicine-b627f-firebase-adminsdk-d468k-d62bff6970.json
+firebase.json
+
+HandleWebClientController

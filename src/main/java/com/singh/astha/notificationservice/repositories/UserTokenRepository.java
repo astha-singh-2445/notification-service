@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface UserTokenRepository extends MongoRepository<UserToken, String> {
 
     Optional<UserToken> findByUserId(Long userId);
+
+    Optional<UserToken> findByNotificationToken(String notificationToken);
 }

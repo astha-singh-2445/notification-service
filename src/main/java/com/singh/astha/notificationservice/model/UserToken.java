@@ -19,7 +19,7 @@ public class UserToken {
     private String id;
     @Indexed(unique = true, background = true)
     private Long userId;
-    private List<Token> userToken;
+    private List<Token> tokens;
 
 
 }

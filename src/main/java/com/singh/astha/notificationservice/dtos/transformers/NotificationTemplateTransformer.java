@@ -12,14 +12,14 @@ public class NotificationTemplateTransformer {
             NotificationTemplate notificationTemplate) {
         return NotificationTemplateResponseDto.builder()
                 .id(notificationTemplate.getId())
-                .template(notificationTemplate.getTemplate())
+                .body(notificationTemplate.getBody())
                 .build();
     }
 
     public NotificationTemplate convertNotificationTemplateRequestDtoToNotificationTemplate(
             NotificationTemplateRequestDto notificationTemplateRequestDto) {
         return NotificationTemplate.builder()
-                .template(notificationTemplateRequestDto.getTemplate())
+                .body(notificationTemplateRequestDto.getBody())
                 .build();
     }
 

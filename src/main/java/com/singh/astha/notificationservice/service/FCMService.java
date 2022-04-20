@@ -1,8 +1,8 @@
 package com.singh.astha.notificationservice.service;
 
-import com.singh.astha.notificationservice.dtos.kafka.NotificationRequest;
+import java.util.Map;
 
 public interface FCMService {
 
-    String sendNotification(NotificationRequest notificationRequest);
+    void sendFcmMessage(Map<String, Object> data);
 }
