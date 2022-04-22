@@ -34,12 +34,10 @@ public class NotificationTokenServiceImpl implements NotificationTokenService {
         NotificationToken notificationToken;
         if (notificationTokenOptional.isPresent()) {
             notificationToken = notificationTokenOptional.get();
-            List<Token> savedToken = notificationToken.getTokens().stream()
-                    .filter(res -> res.getNotificationToken()
-                            .equals(notificationTokenRequestDto.getNotificationToken()))
-                    .collect(
-                            Collectors.toList());
-            if (!savedToken.isEmpty()) {
+            boolean isTokenExist = notificationToken.getTokens().stream().anyMatch(
+                    res -> res.getNotificationToken().equals(notificationTokenRequestDto.getNotificationToken()));
+
+            if (isTokenExist) {
                 throw new ResponseException(HttpStatus.BAD_REQUEST, Constants.TOKEN_ALREADY_EXISTS);
             }
             Token token = new Token();
