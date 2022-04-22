@@ -5,15 +5,12 @@ import com.singh.astha.notificationservice.dtos.response.NotificationTemplateRes
 import com.singh.astha.notificationservice.dtos.response.ResponseWrapper;
 import com.singh.astha.notificationservice.service.NotificationTemplateService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/template")
+@RequestMapping("/notification/template")
 public class TemplateController {
 
     private final NotificationTemplateService notificationTemplateService;
@@ -24,10 +21,18 @@ public class TemplateController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseWrapper<NotificationTemplateResponseDto>> saveTemplate(
+    public ResponseEntity<ResponseWrapper<NotificationTemplateResponseDto>> saveNotificationTemplate(
             @Valid @RequestBody NotificationTemplateRequestDto notificationTemplateRequestDto) {
         return ResponseEntity.ok()
                 .body(ResponseWrapper.success(
                         notificationTemplateService.saveNotificationTemplate(notificationTemplateRequestDto)));
+    }
+
+    @GetMapping
+    public ResponseEntity<ResponseWrapper<NotificationTemplateResponseDto>> getNotificationTemplate(
+            @RequestParam String templateId) {
+        return ResponseEntity.ok()
+                .body(ResponseWrapper.success(
+                        notificationTemplateService.getNotificationTemplate(templateId)));
     }
 }

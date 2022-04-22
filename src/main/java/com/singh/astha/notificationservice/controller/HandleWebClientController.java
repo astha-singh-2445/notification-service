@@ -19,17 +19,23 @@ public class HandleWebClientController {
         this.notificationService = notificationService;
     }
 
-    @GetMapping()
+    @GetMapping("/kafka/token")
     public String handleWebclient() {
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setUserId(13771888056598551L);
-        notificationRequest.setTemplateId("62580ca3b352db798c4ec8ca");
+        notificationRequest.setTemplateId("Medicine");
+        HashMap<String, String> values1 = new HashMap<>();
+        values1.put("medicine-reminder", "Medicine Reminder");
+        notificationRequest.setTitlePlaceholder(values1);
         HashMap<String, String> values = new HashMap<>();
         values.put("medicine-name", "Paracetamol");
-        notificationRequest.setPlaceHolder(values);
+        notificationRequest.setBodyPlaceHolders(values);
         try {
             notificationService.sendNotification(notificationRequest);
         } catch (Exception e) {
+            if (e instanceof ResponseException) {
+                throw e;
+            }
             throw new ResponseException(HttpStatus.BAD_REQUEST, "Not able to send notification");
         }
         return "Success";

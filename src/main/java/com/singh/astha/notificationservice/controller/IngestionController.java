@@ -19,7 +19,6 @@ public class IngestionController {
         this.notificationService = notificationService;
     }
 
-
     @KafkaListener(topics = {Constants.NOTIFICATION_INGESTION})
     public void repeat(String value) throws JsonProcessingException {
         NotificationRequest notificationRequest = objectMapper.readValue(value, NotificationRequest.class);

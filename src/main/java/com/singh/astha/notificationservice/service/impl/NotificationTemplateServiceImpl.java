@@ -29,14 +29,27 @@ public class NotificationTemplateServiceImpl implements NotificationTemplateServ
     @Override
     public NotificationTemplateResponseDto saveNotificationTemplate(
             NotificationTemplateRequestDto notificationTemplateRequestDto) {
+        Optional<NotificationTemplate> notificationTemplateOptional = notificationTemplateRepository.findByTemplateId(
+                notificationTemplateRequestDto.getTemplateId());
+        if (notificationTemplateOptional.isPresent()) {
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.TEMPLATE_ALREADY_EXISTS);
+        }
         NotificationTemplate notificationTemplate = notificationTemplateTransformer.convertNotificationTemplateRequestDtoToNotificationTemplate(
                 notificationTemplateRequestDto);
-        Optional<NotificationTemplate> notificationTemplateOptional = notificationTemplateRepository.findByTemplateId(
-                notificationTemplate.getTemplateId());
-        if (notificationTemplateOptional.isPresent()) {
-            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.USER_TOKEN_NOT_EXIST);
-        }
+
         notificationTemplate = notificationTemplateRepository.save(notificationTemplate);
+        return notificationTemplateTransformer.convertNotificationTemplateToNotificationTemplateResponseDto(
+                notificationTemplate);
+    }
+
+    @Override
+    public NotificationTemplateResponseDto getNotificationTemplate(String templateId) {
+        Optional<NotificationTemplate> notificationTemplateOptional = notificationTemplateRepository.findByTemplateId(
+                templateId);
+        if (notificationTemplateOptional.isEmpty()) {
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.TEMPLATE_NOT_EXIST);
+        }
+        NotificationTemplate notificationTemplate = notificationTemplateOptional.get();
         return notificationTemplateTransformer.convertNotificationTemplateToNotificationTemplateResponseDto(
                 notificationTemplate);
     }

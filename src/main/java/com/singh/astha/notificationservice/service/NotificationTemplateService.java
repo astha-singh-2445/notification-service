@@ -7,4 +7,6 @@ public interface NotificationTemplateService {
 
     NotificationTemplateResponseDto saveNotificationTemplate(
             NotificationTemplateRequestDto notificationTemplateRequestDto);
+
+    NotificationTemplateResponseDto getNotificationTemplate(String templateId);
 }

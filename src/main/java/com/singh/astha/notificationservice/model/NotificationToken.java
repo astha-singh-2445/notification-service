@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document("user_token")
+@Document("notification_token")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserToken {
+public class NotificationToken {
 
     @Id
     private String id;
