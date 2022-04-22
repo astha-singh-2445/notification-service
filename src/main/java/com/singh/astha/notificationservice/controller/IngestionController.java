@@ -3,26 +3,26 @@ package com.singh.astha.notificationservice.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.singh.astha.notificationservice.dtos.kafka.NotificationRequest;
-import com.singh.astha.notificationservice.service.FCMService;
-import com.singh.astha.notificationservice.utils.Constant;
+import com.singh.astha.notificationservice.service.NotificationService;
+import com.singh.astha.notificationservice.utils.Constants;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
-@RestController
+@Component
 public class IngestionController {
 
-    private final FCMService fcmService;
+    private final NotificationService notificationService;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public IngestionController(FCMService fcmService) {
-        this.fcmService = fcmService;
+    public IngestionController(NotificationService notificationService) {
+        this.notificationService = notificationService;
     }
 
-    @KafkaListener(topics = {Constant.NOTIFICATION_INGESTION})
+    @KafkaListener(topics = {Constants.NOTIFICATION_INGESTION})
     public void repeat(String value) throws JsonProcessingException {
         NotificationRequest notificationRequest = objectMapper.readValue(value, NotificationRequest.class);
-        fcmService.sendNotification(notificationRequest);
+        notificationService.sendNotification(notificationRequest);
     }
 
 }

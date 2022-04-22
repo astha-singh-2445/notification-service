@@ -5,6 +5,8 @@ import com.singh.astha.notificationservice.dtos.response.NotificationTemplateRes
 
 public interface NotificationTemplateService {
 
-    public NotificationTemplateResponseDto saveNotificationTemplate(
+    NotificationTemplateResponseDto saveNotificationTemplate(
             NotificationTemplateRequestDto notificationTemplateRequestDto);
+
+    NotificationTemplateResponseDto getNotificationTemplate(String templateId);
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserTokenResponseDto {
+public class NotificationTokenResponseDto {
 
     private String id;
     private Long userId;

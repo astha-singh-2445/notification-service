@@ -14,5 +14,8 @@ public class NotificationTemplate {
 
     @Id
     private String id;
-    private String template;
+    private String templateId;
+    private String title;
+    private String body;
+    private String imageLink;
 }

@@ -12,5 +12,13 @@ import javax.validation.constraints.NotBlank;
 public class NotificationTemplateRequestDto {
 
     @NotBlank
-    private String template;
+    private String templateId;
+
+    @NotBlank
+    private String title;
+
+    @NotBlank
+    private String body;
+
+    private String imageLink;
 }
