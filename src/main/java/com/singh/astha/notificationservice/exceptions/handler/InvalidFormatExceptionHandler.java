@@ -18,11 +18,6 @@ public class InvalidFormatExceptionHandler {
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<ResponseWrapper<Object>> handleInvalidFormatException(HttpServletRequest httpServletRequest,
                                                                                 InvalidFormatException exception) {
-//        HashMap<String, String> errors = new HashMap<>();
-//        exception.getBindingResult().getAllErrors()
-//                .forEach(error -> errors.put(((FieldError) error).getField(), error.getDefaultMessage()));
-//        return ResponseEntity.badRequest().body(ResponseWrapper.failure(errors));
-
         ResponseWrapper<Object> responseWrapper = ResponseWrapper.failure(exception.getValue(),
                 exception.getMessage());
         return new ResponseEntity<>(responseWrapper, HttpStatus.BAD_REQUEST);
