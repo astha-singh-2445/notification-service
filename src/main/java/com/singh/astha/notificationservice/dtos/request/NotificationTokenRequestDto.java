@@ -1,5 +1,6 @@
 package com.singh.astha.notificationservice.dtos.request;
 
+import com.singh.astha.notificationservice.enums.DeviceType;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -16,5 +17,5 @@ public class NotificationTokenRequestDto {
     private String notificationToken;
 
     @NotNull
-    private String deviceType;
+    private DeviceType deviceType;
 }

@@ -1,5 +1,6 @@
 package com.singh.astha.notificationservice.model;
 
+import com.singh.astha.notificationservice.enums.DeviceType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,6 @@ public class Token {
 
     private Long createdAt;
     private String notificationToken;
-    private String deviceType;
+    private DeviceType deviceType;
 
 }
