@@ -19,7 +19,7 @@ public class InvalidFormatExceptionHandler {
     public ResponseEntity<ResponseWrapper<Object>> handleInvalidFormatException(HttpServletRequest httpServletRequest,
                                                                                 InvalidFormatException exception) {
         ResponseWrapper<Object> responseWrapper = ResponseWrapper.failure(exception.getValue(),
-                exception.getMessage());
+                exception.getOriginalMessage());
         return new ResponseEntity<>(responseWrapper, HttpStatus.BAD_REQUEST);
     }
 }
