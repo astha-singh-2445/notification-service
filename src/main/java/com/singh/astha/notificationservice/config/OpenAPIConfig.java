@@ -15,5 +15,5 @@ import org.springframework.context.annotation.Configuration;
         bearerFormat = "JWT",
         scheme = "bearer"
 )
-public class AppConfig {
+public class OpenAPIConfig {
 }
