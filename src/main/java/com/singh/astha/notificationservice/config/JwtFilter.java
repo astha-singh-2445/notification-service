@@ -47,6 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         } catch (Exception ignored) {
             // Ignore this exception
+            logger.info("UNABLE_TO_SET_USER_PASSWORD_CONTEXT_DUE_TO_ERROR");
         }
         filterChain.doFilter(request, response);
     }
