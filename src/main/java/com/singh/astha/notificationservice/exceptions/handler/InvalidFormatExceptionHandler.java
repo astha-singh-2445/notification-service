@@ -19,7 +19,7 @@ public class InvalidFormatExceptionHandler {
         HashMap<String, String> errors = new HashMap<>();
         if (exception.getTargetType().isEnum()) {
             String validValues = Arrays.toString(exception.getTargetType().getEnumConstants());
-            errors.put(exception.getPath().get(0).getFieldName(), String.format("Invalid enum value. Valid values are: %s", validValues));
+            errors.put(exception.getPath().get(0).getFieldName(), String.format("must we among %s", validValues));
         }
         return ResponseEntity.badRequest().body(ResponseWrapper.failure(errors));
     }
