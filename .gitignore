@@ -36,5 +36,3 @@ out/
 ### VS Code ###
 .vscode/
 firebase.json
-
-src/main/java/com/singh/astha/notificationservice/controller/HandleWebClientController.java
