@@ -15,9 +15,13 @@ public class NotificationTemplate {
 
     @Id
     private String id;
+
     @Indexed(unique = true, background = true)
     private String templateId;
+
     private String title;
+
     private String body;
+
     private String imageLink;
 }

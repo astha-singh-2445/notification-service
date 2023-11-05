@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+
     private final JwtAuthenticationHandler jwtAuthenticationHandler;
 
     public SecurityConfig(JwtFilter jwtFilter, JwtAuthenticationHandler jwtAuthenticationHandler) {
@@ -24,7 +25,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/health", "/api-docs/**", "/swagger-ui/**").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(
+                        auth -> auth.requestMatchers("/health", "/api-docs/**", "/swagger-ui/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationHandler))

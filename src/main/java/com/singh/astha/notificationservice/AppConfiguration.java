@@ -21,7 +21,7 @@ import java.util.Arrays;
 @Configuration
 public class AppConfiguration {
 
-    private static final String[] SCOPES = {Constants.MESSAGING_SCOPE};
+    private static final String[] SCOPES = { Constants.MESSAGING_SCOPE };
 
     @Bean
     public NewTopic ingestionTopic() {
@@ -35,7 +35,8 @@ public class AppConfiguration {
                 .maxIdleTime(Duration.ofSeconds(20))
                 .maxLifeTime(Duration.ofSeconds(60))
                 .pendingAcquireTimeout(Duration.ofSeconds(60))
-                .evictInBackground(Duration.ofSeconds(120)).build();
+                .evictInBackground(Duration.ofSeconds(120))
+                .build();
 
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(HttpClient.create(provider)))

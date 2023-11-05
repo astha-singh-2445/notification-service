@@ -14,10 +14,13 @@ import java.util.HashMap;
 public class MethodArgumentNotValidExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ResponseWrapper<Object>> handleDuplicationKeyException(HttpServletRequest httpServletRequest,
-                                                                                 MethodArgumentNotValidException exception) {
+    public ResponseEntity<ResponseWrapper<Object>> handleDuplicationKeyException(
+            HttpServletRequest httpServletRequest,
+            MethodArgumentNotValidException exception
+    ) {
         HashMap<String, String> errors = new HashMap<>();
-        exception.getBindingResult().getAllErrors()
+        exception.getBindingResult()
+                .getAllErrors()
                 .forEach(error -> errors.put(((FieldError) error).getField(), error.getDefaultMessage()));
         return ResponseEntity.badRequest().body(ResponseWrapper.failure(errors));
     }

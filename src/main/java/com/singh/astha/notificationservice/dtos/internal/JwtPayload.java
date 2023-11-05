@@ -12,5 +12,6 @@ import java.util.List;
 public class JwtPayload {
 
     private Long userId;
+
     private List<String> roles;
 }

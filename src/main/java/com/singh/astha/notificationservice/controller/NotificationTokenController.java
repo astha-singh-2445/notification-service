@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/notification/token")
 @SecurityRequirement(name = "bearerAuth")
@@ -28,7 +27,8 @@ public class NotificationTokenController {
     @PostMapping()
     public ResponseEntity<ResponseWrapper<NotificationTokenResponseDto>> saveNotificationToken(
             Authentication authentication,
-            @Valid @RequestBody NotificationTokenRequestDto notificationTokenRequestDto) {
+            @Valid @RequestBody NotificationTokenRequestDto notificationTokenRequestDto
+    ) {
         Long userId = Long.valueOf(authentication.getName());
         notificationTokenService.saveNotificationToken(notificationTokenRequestDto, userId);
         return ResponseEntity.ok().body(ResponseWrapper.success(null));
