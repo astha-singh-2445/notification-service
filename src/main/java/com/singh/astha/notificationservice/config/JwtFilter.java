@@ -3,6 +3,7 @@ package com.singh.astha.notificationservice.config;
 import com.singh.astha.notificationservice.dtos.internal.JwtPayload;
 import com.singh.astha.notificationservice.service.JwtService;
 import com.singh.astha.notificationservice.utils.Constants;
+import com.singh.astha.notificationservice.utils.MessageConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,9 +46,9 @@ public class JwtFilter extends OncePerRequestFilter {
                         new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
-        } catch (Exception ignored) {
+        } catch (Exception exception) {
             // Ignore this exception
-            logger.info("UNABLE_TO_SET_USER_PASSWORD_CONTEXT_DUE_TO_ERROR");
+            logger.error(MessageConstants.UNABLE_TO_SET_USER_PASSWORD_AUTHENTICATION_TOKEN, exception);
         }
         filterChain.doFilter(request, response);
     }
