@@ -1,8 +1,8 @@
 package com.singh.astha.notificationservice.dtos.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
