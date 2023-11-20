@@ -7,7 +7,7 @@ COPY gradle gradle
 COPY src src
 COPY gradlew gradlew
 COPY build.gradle.kts build.gradle.kts
-COPY settings.gradle.kts settings.gradle
+COPY settings.gradle.kts settings.gradle.kts
 ENV SPRING_MONGO_URL $SPRING_MONGO_URL
 ENV PUBLIC_KEY $PUBLIC_KEY
 ENV KAFKA_BOOTSTRAP_SERVERS $KAFKA_BOOTSTRAP_SERVERS
