@@ -16,11 +16,13 @@ import java.util.Map;
 public class FCMServiceImpl implements FCMService {
 
     private final GoogleCredentials googleCredentials;
+
     private final WebClient webClient;
 
-
-    public FCMServiceImpl(GoogleCredentials googleCredentials,
-                          WebClient webClient) {
+    public FCMServiceImpl(
+            GoogleCredentials googleCredentials,
+            WebClient webClient
+    ) {
         this.googleCredentials = googleCredentials;
         this.webClient = webClient;
     }
@@ -37,8 +39,8 @@ public class FCMServiceImpl implements FCMService {
                         return res.createException().flatMap(Mono::error);
                     }
                     return res.bodyToMono(String.class);
-                }).block();
+                })
+                .block();
     }
-
 
 }

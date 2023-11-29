@@ -17,40 +17,49 @@ import java.util.Optional;
 public class NotificationTemplateServiceImpl implements NotificationTemplateService {
 
     private final NotificationTemplateTransformer notificationTemplateTransformer;
+
     private final NotificationTemplateRepository notificationTemplateRepository;
 
     public NotificationTemplateServiceImpl(
             NotificationTemplateTransformer notificationTemplateTransformer,
-            NotificationTemplateRepository notificationTemplateRepository) {
+            NotificationTemplateRepository notificationTemplateRepository
+    ) {
         this.notificationTemplateTransformer = notificationTemplateTransformer;
         this.notificationTemplateRepository = notificationTemplateRepository;
     }
 
     @Override
     public NotificationTemplateResponseDto saveNotificationTemplate(
-            NotificationTemplateRequestDto notificationTemplateRequestDto) {
+            NotificationTemplateRequestDto notificationTemplateRequestDto
+    ) {
         Optional<NotificationTemplate> notificationTemplateOptional = notificationTemplateRepository.findByTemplateId(
-                notificationTemplateRequestDto.getTemplateId());
+                notificationTemplateRequestDto.getTemplateId()
+        );
         if (notificationTemplateOptional.isPresent()) {
             throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.TEMPLATE_ALREADY_EXISTS);
         }
-        NotificationTemplate notificationTemplate = notificationTemplateTransformer.convertNotificationTemplateRequestDtoToNotificationTemplate(
-                notificationTemplateRequestDto);
+        NotificationTemplate notificationTemplate = notificationTemplateTransformer
+                .convertNotificationTemplateRequestDtoToNotificationTemplate(
+                        notificationTemplateRequestDto
+                );
 
         notificationTemplate = notificationTemplateRepository.save(notificationTemplate);
         return notificationTemplateTransformer.convertNotificationTemplateToNotificationTemplateResponseDto(
-                notificationTemplate);
+                notificationTemplate
+        );
     }
 
     @Override
     public NotificationTemplateResponseDto getNotificationTemplate(String templateId) {
         Optional<NotificationTemplate> notificationTemplateOptional = notificationTemplateRepository.findByTemplateId(
-                templateId);
+                templateId
+        );
         if (notificationTemplateOptional.isEmpty()) {
             throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.TEMPLATE_NOT_EXIST);
         }
         NotificationTemplate notificationTemplate = notificationTemplateOptional.get();
         return notificationTemplateTransformer.convertNotificationTemplateToNotificationTemplateResponseDto(
-                notificationTemplate);
+                notificationTemplate
+        );
     }
 }

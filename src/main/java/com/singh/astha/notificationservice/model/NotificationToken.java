@@ -17,9 +17,10 @@ public class NotificationToken {
 
     @Id
     private String id;
+
     @Indexed(unique = true, background = true)
     private Long userId;
-    private List<Token> tokens;
 
+    private List<Token> tokens;
 
 }
