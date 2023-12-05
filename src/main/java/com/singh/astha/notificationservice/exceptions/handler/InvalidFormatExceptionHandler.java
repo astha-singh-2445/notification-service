@@ -17,15 +17,23 @@ import java.util.List;
 public class InvalidFormatExceptionHandler {
 
     @ExceptionHandler(InvalidFormatException.class)
-    public ResponseEntity<ResponseWrapper<Object>> handleInvalidFormatException(HttpServletRequest httpServletRequest,
-                                                                                InvalidFormatException invalidFormatException) {
+    public ResponseEntity<ResponseWrapper<Object>> handleInvalidFormatException(
+            HttpServletRequest httpServletRequest,
+            InvalidFormatException invalidFormatException
+    ) {
         HashMap<String, String> errors = new HashMap<>();
 
         Class<?> targetType = invalidFormatException.getTargetType();
         if (targetType != null && targetType.isEnum()) {
             List<JsonMappingException.Reference> path = invalidFormatException.getPath();
             String fieldName = path.get(path.size() - 1).getFieldName();
-            errors.put(fieldName, String.format(MessageConstants.ENUM_INVALID_CAST_MESSAGE, Arrays.toString(targetType.getEnumConstants())));
+            errors.put(
+                    fieldName,
+                    String.format(
+                            MessageConstants.ENUM_INVALID_CAST_MESSAGE,
+                            Arrays.toString(targetType.getEnumConstants())
+                    )
+            );
         }
         return ResponseEntity.badRequest().body(ResponseWrapper.failure(errors));
     }

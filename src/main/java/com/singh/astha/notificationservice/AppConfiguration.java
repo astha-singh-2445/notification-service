@@ -17,11 +17,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class AppConfiguration {
 
-    private static final String[] SCOPES = {Constants.MESSAGING_SCOPE};
+    private static final List<String> SCOPES = List.of(Constants.MESSAGING_SCOPE);
 
     @Bean
     public NewTopic ingestionTopic() {
@@ -35,7 +36,8 @@ public class AppConfiguration {
                 .maxIdleTime(Duration.ofSeconds(20))
                 .maxLifeTime(Duration.ofSeconds(60))
                 .pendingAcquireTimeout(Duration.ofSeconds(60))
-                .evictInBackground(Duration.ofSeconds(120)).build();
+                .evictInBackground(Duration.ofSeconds(120))
+                .build();
 
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(HttpClient.create(provider)))
@@ -47,7 +49,7 @@ public class AppConfiguration {
     public GoogleCredentials getGoogleCredential() throws IOException {
         return GoogleCredentials
                 .fromStream(new FileInputStream(Constants.FIREBASE_PRIVATE_KEY_JSON))
-                .createScoped(Arrays.asList(SCOPES));
+                .createScoped(SCOPES);
     }
 
 }

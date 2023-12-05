@@ -3,7 +3,6 @@ package com.singh.astha.notificationservice.dtos.request;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-
 @Getter
 @Setter
 @NoArgsConstructor

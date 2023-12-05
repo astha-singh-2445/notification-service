@@ -19,6 +19,7 @@ import java.io.IOException;
 public class JwtAuthenticationHandler implements AuthenticationEntryPoint {
 
     private final JwtService jwtService;
+
     private final ObjectMapper objectMapper;
 
     public JwtAuthenticationHandler(JwtService jwtService) {
@@ -27,30 +28,43 @@ public class JwtAuthenticationHandler implements AuthenticationEntryPoint {
     }
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException {
+    public void commence(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException authException
+    ) throws IOException {
         response.setHeader(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
         try {
             String authorizationHeader = request.getHeader(Constants.AUTHORIZATION);
             if (authorizationHeader == null) {
-                writeResponse(response, HttpStatus.BAD_REQUEST.value(),
+                writeResponse(
+                        response,
+                        HttpStatus.BAD_REQUEST.value(),
                         ResponseWrapper.failure(null, ErrorMessages.AUTHORIZATION_HEADER_MUST_BE_PRESENT)
                 );
                 return;
             }
             jwtService.verifyAndDecodeToken(authorizationHeader);
         } catch (ResponseException responseException) {
-            writeResponse(response, responseException.getStatus().value(),
+            writeResponse(
+                    response,
+                    responseException.getStatus().value(),
                     ResponseWrapper.failure(responseException.getPayload(), responseException.getMessage())
             );
             return;
         }
-        writeResponse(response, HttpStatus.FORBIDDEN.value(),
-                ResponseWrapper.failure(null, ErrorMessages.ACCESS_DENIED));
+        writeResponse(
+                response,
+                HttpStatus.FORBIDDEN.value(),
+                ResponseWrapper.failure(null, ErrorMessages.ACCESS_DENIED)
+        );
     }
 
-    private <T> void writeResponse(HttpServletResponse response, int httpStatus,
-                                   ResponseWrapper<T> responseWrapper) throws IOException {
+    private <T> void writeResponse(
+            HttpServletResponse response,
+            int httpStatus,
+            ResponseWrapper<T> responseWrapper
+    ) throws IOException {
         response.setStatus(httpStatus);
         response.getWriter().println(objectMapper.writeValueAsString(responseWrapper));
     }

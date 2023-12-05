@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 public class NotificationTemplateTransformer {
 
     public NotificationTemplateResponseDto convertNotificationTemplateToNotificationTemplateResponseDto(
-            NotificationTemplate notificationTemplate) {
+            NotificationTemplate notificationTemplate
+    ) {
         return NotificationTemplateResponseDto.builder()
                 .id(notificationTemplate.getId())
                 .templateId(notificationTemplate.getTemplateId())
@@ -20,7 +21,8 @@ public class NotificationTemplateTransformer {
     }
 
     public NotificationTemplate convertNotificationTemplateRequestDtoToNotificationTemplate(
-            NotificationTemplateRequestDto notificationTemplateRequestDto) {
+            NotificationTemplateRequestDto notificationTemplateRequestDto
+    ) {
         return NotificationTemplate.builder()
                 .templateId(notificationTemplateRequestDto.getTemplateId())
                 .title(notificationTemplateRequestDto.getTitle())

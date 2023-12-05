@@ -14,7 +14,8 @@ public class NotificationTokenDtoTransformer {
 
     public NotificationToken convertNotificationTokenRequestDtoToUserToken(
             NotificationTokenRequestDto notificationTokenRequestDto,
-            Long userId) {
+            Long userId
+    ) {
         Token token = new Token();
         token.setNotificationToken(notificationTokenRequestDto.getNotificationToken());
         token.setCreatedAt(Clock.systemDefaultZone().millis());

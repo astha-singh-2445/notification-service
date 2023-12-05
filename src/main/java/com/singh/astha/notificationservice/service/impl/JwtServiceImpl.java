@@ -56,7 +56,9 @@ public class JwtServiceImpl implements JwtService {
                 throw new ResponseException(HttpStatus.UNAUTHORIZED, ErrorMessages.INVALID_TOKEN);
             }
         }
-        throw new ResponseException(HttpStatus.BAD_REQUEST,
-                ErrorMessages.AUTHORIZATION_HEADER_MUST_NOT_BE_NULL_AND_MUST_START_BE_BEARER);
+        throw new ResponseException(
+                HttpStatus.BAD_REQUEST,
+                ErrorMessages.AUTHORIZATION_HEADER_MUST_NOT_BE_NULL_AND_MUST_START_BE_BEARER
+        );
     }
 }
