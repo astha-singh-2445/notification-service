@@ -1,4 +1,4 @@
-package com.singh.astha.notificationservice.controller;
+package com.singh.astha.notificationservice.consumers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,13 +9,13 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IngestionController {
+public class KafkaConsumer {
 
     private final NotificationService notificationService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public IngestionController(NotificationService notificationService) {
+    public KafkaConsumer(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
 
@@ -24,5 +24,4 @@ public class IngestionController {
         NotificationRequest notificationRequest = objectMapper.readValue(value, NotificationRequest.class);
         notificationService.sendNotification(notificationRequest);
     }
-
 }
