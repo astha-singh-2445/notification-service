@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.resources.ConnectionProvider;
 
@@ -20,6 +21,7 @@ import java.time.Duration;
 import java.util.List;
 
 @Configuration
+@EnableWebMvc
 public class AppConfiguration {
 
     private static final List<String> SCOPES = List.of(Constants.MESSAGING_SCOPE);

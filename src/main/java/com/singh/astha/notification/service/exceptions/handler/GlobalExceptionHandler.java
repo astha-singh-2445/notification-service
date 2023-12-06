@@ -6,11 +6,13 @@ import com.singh.astha.notification.service.dtos.response.ResponseWrapper;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.utils.MessageConstants;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,6 +31,12 @@ public class GlobalExceptionHandler {
                 exception.getMessage()
         );
         return new ResponseEntity<>(responseWrapper, exception.getStatus());
+    }
+
+    @ExceptionHandler({ NoHandlerFoundException.class })
+    public ResponseEntity<ResponseWrapper<Void>> handleNoHandlerFoundException() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ResponseWrapper.failure(null, MessageConstants.NO_HANDLER_FOUND));
     }
 
     @ExceptionHandler(InvalidFormatException.class)

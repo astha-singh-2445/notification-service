@@ -15,11 +15,18 @@ public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
 
-    private final JwtAuthenticationHandler jwtAuthenticationHandler;
+    private final AuthenticationExceptionHandler authenticationExceptionHandler;
 
-    public SecurityConfig(JwtFilter jwtFilter, JwtAuthenticationHandler jwtAuthenticationHandler) {
+    private final AccessDeniedExceptionHandler accessDeniedExceptionHandler;
+
+    public SecurityConfig(
+            JwtFilter jwtFilter,
+            AuthenticationExceptionHandler authenticationExceptionHandler,
+            AccessDeniedExceptionHandler accessDeniedExceptionHandler
+    ) {
         this.jwtFilter = jwtFilter;
-        this.jwtAuthenticationHandler = jwtAuthenticationHandler;
+        this.authenticationExceptionHandler = authenticationExceptionHandler;
+        this.accessDeniedExceptionHandler = accessDeniedExceptionHandler;
     }
 
     @Bean
@@ -33,7 +40,10 @@ public class SecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationHandler))
+                .exceptionHandling(
+                        exception -> exception.authenticationEntryPoint(authenticationExceptionHandler)
+                                .accessDeniedHandler(accessDeniedExceptionHandler)
+                )
                 .build();
     }
 }
