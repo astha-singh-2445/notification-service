@@ -1,0 +1,22 @@
+name: "Build PR"
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "corretto"
+          java-version: "17"
+
+      - name: Gradle Build
+        run: ./gradlew clean build
