@@ -1,4 +1,4 @@
-package com.singh.astha.notification.service.config;
+package com.singh.astha.notification.service.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

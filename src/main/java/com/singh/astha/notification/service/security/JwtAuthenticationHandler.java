@@ -1,9 +1,9 @@
-package com.singh.astha.notification.service.config;
+package com.singh.astha.notification.service.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.singh.astha.notification.service.dtos.response.ResponseWrapper;
 import com.singh.astha.notification.service.exceptions.ResponseException;
-import com.singh.astha.notification.service.service.JwtService;
+import com.singh.astha.notification.service.security.service.JwtService;
 import com.singh.astha.notification.service.utils.Constants;
 import com.singh.astha.notification.service.utils.ErrorMessages;
 import jakarta.servlet.http.HttpServletRequest;
