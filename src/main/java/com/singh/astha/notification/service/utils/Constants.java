@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public final class Constants {
 
+    public static final String ERROR_CODE_PREFIX = "NS-E-";
+
     public static final String NOTIFICATION_INGESTION = "notification_ingestion";
 
     public static final String GOOGLE_API = "https://fcm.googleapis.com/v1/projects/medicine-b627f/messages:send";
@@ -32,7 +34,11 @@ public final class Constants {
 
     public static final String TOKEN_ALREADY_EXISTS = "Token already exists";
 
-    public static final String AUTHORIZATION = "Authorization";
+    public static final String CONTENT_TYPE = "Content-Type";
+
+    public static final String APPLICATION_JSON = "application/json";
+
+    public static final String KEY_VALUE_ERROR_FORMAT = "%s: %s";
 
     private Constants() {
     }
