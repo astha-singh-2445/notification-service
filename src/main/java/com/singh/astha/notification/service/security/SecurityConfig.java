@@ -31,9 +31,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        String[] allowedPaths = { "/health", "/error", "/swagger-ui/*", "/v3/api-docs", "/v3/api-docs/*" };
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/health", "/api-docs/**", "/swagger-ui/**")
+                        auth -> auth.requestMatchers(allowedPaths)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()

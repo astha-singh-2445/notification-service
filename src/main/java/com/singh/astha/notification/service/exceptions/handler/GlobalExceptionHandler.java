@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(responseWrapper, exception.getStatus());
     }
 
-    @ExceptionHandler({ NoHandlerFoundException.class })
+    @ExceptionHandler(value = { NoHandlerFoundException.class })
     public ResponseEntity<ResponseWrapper<Void>> handleNoHandlerFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ResponseWrapper.failure(null, MessageConstants.NO_HANDLER_FOUND));
