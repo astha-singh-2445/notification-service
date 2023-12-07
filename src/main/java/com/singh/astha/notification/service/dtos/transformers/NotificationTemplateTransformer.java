@@ -2,7 +2,7 @@ package com.singh.astha.notification.service.dtos.transformers;
 
 import com.singh.astha.notification.service.dtos.request.NotificationTemplateRequestDto;
 import com.singh.astha.notification.service.dtos.response.NotificationTemplateResponseDto;
-import com.singh.astha.notification.service.model.NotificationTemplate;
+import com.singh.astha.notification.service.models.NotificationTemplate;
 import org.springframework.stereotype.Component;
 
 @Component

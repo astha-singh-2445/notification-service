@@ -1,6 +1,6 @@
 package com.singh.astha.notification.service.repositories;
 
-import com.singh.astha.notification.service.model.NotificationToken;
+import com.singh.astha.notification.service.models.NotificationToken;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
