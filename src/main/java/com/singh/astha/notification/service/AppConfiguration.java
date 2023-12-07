@@ -35,7 +35,10 @@ public class AppConfiguration {
 
     @Bean
     public NewTopic ingestionTopic() {
-        return TopicBuilder.name(kafkaTopicName).partitions(Integer.parseInt(kafkaTopicPartitions)).replicas(Integer.parseInt(kafkaTopicReplicas)).build();
+        return TopicBuilder.name(kafkaTopicName)
+                .partitions(Integer.parseInt(kafkaTopicPartitions))
+                .replicas(Integer.parseInt(kafkaTopicReplicas))
+                .build();
     }
 
     @Bean
