@@ -1,4 +1,4 @@
-package com.singh.astha.notification.service.utils;
+package com.singh.astha.notification.service.security.utils;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

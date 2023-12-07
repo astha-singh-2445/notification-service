@@ -1,4 +1,4 @@
-package com.singh.astha.notification.service.dtos.internal;
+package com.singh.astha.notification.service.security.dtos;
 
 import lombok.*;
 
