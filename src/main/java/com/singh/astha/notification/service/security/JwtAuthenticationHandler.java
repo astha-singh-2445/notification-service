@@ -1,11 +1,12 @@
-package com.singh.astha.notification.service.config;
+package com.singh.astha.notification.service.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.singh.astha.notification.service.dtos.response.ResponseWrapper;
 import com.singh.astha.notification.service.exceptions.ResponseException;
-import com.singh.astha.notification.service.services.JwtService;
-import com.singh.astha.notification.service.utils.Constants;
-import com.singh.astha.notification.service.utils.ErrorMessages;
+import com.singh.astha.notification.service.security.utils.Constants;
+import com.singh.astha.notification.service.security.utils.ErrorMessages;
+import com.singh.astha.notification.service.security.service.JwtService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;

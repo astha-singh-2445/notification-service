@@ -22,4 +22,5 @@ public class ResponseException extends RuntimeException {
     public ResponseException(HttpStatus status, String message) {
         this(status, message, null);
     }
+
 }

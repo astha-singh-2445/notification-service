@@ -1,9 +1,9 @@
-package com.singh.astha.notification.service.config;
+package com.singh.astha.notification.service.security;
 
-import com.singh.astha.notification.service.dtos.internal.JwtPayload;
-import com.singh.astha.notification.service.services.JwtService;
-import com.singh.astha.notification.service.utils.Constants;
-import com.singh.astha.notification.service.utils.MessageConstants;
+import com.singh.astha.notification.service.security.utils.Constants;
+import com.singh.astha.notification.service.security.utils.MessageConstants;
+import com.singh.astha.notification.service.security.dtos.JwtPayload;
+import com.singh.astha.notification.service.security.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
