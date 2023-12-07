@@ -19,7 +19,7 @@ public class KafkaConsumer {
         this.notificationService = notificationService;
     }
 
-    @KafkaListener(topics = {Constants.NOTIFICATION_INGESTION})
+    @KafkaListener(topics = { Constants.NOTIFICATION_INGESTION })
     public void repeat(String value) throws JsonProcessingException {
         NotificationRequest notificationRequest = objectMapper.readValue(value, NotificationRequest.class);
         notificationService.sendNotification(notificationRequest);
