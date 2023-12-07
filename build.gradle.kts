@@ -60,3 +60,14 @@ dependencies {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+val installLocalGitHookTaskName = "installLocalGitHook"
+tasks.register<Copy>(installLocalGitHookTaskName) {
+	from(".githooks")
+	into(".git/hooks")
+}
+
+tasks.named("build") {
+	dependsOn(installLocalGitHookTaskName)
+}
+
