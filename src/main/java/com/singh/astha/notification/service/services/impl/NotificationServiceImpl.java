@@ -2,14 +2,14 @@ package com.singh.astha.notification.service.services.impl;
 
 import com.singh.astha.notification.service.dtos.kafka.NotificationRequest;
 import com.singh.astha.notification.service.exceptions.ResponseException;
+import com.singh.astha.notification.service.models.NotificationTemplate;
+import com.singh.astha.notification.service.models.NotificationToken;
 import com.singh.astha.notification.service.repositories.NotificationTemplateRepository;
 import com.singh.astha.notification.service.repositories.NotificationTokenRepository;
 import com.singh.astha.notification.service.services.FCMService;
 import com.singh.astha.notification.service.services.NotificationService;
 import com.singh.astha.notification.service.utils.Constants;
 import com.singh.astha.notification.service.utils.ErrorMessages;
-import com.singh.astha.notification.service.models.NotificationTemplate;
-import com.singh.astha.notification.service.models.NotificationToken;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

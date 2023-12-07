@@ -4,10 +4,10 @@ import com.singh.astha.notification.service.dtos.request.NotificationTemplateReq
 import com.singh.astha.notification.service.dtos.response.NotificationTemplateResponseDto;
 import com.singh.astha.notification.service.dtos.transformers.NotificationTemplateTransformer;
 import com.singh.astha.notification.service.exceptions.ResponseException;
+import com.singh.astha.notification.service.models.NotificationTemplate;
 import com.singh.astha.notification.service.repositories.NotificationTemplateRepository;
 import com.singh.astha.notification.service.services.NotificationTemplateService;
 import com.singh.astha.notification.service.utils.ErrorMessages;
-import com.singh.astha.notification.service.models.NotificationTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
