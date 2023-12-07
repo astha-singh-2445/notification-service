@@ -3,28 +3,34 @@ version: "3.8"
 services:
 
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: bitnami/zookeeper:3.9
     container_name: zookeeper
     restart: always
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
     ports:
       - "2181:2181"
 
   kafka:
-    image: wurstmeister/kafka
+    image: bitnami/kafka:3.6
     container_name: kafka
     restart: always
     ports:
-      - "9092:9092"
+      - "9094:9094"
     depends_on:
       - zookeeper
     links:
       - zookeeper:zookeeper
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNAL://:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
 
-  mongo:
-    container_name: "notification-service-mongo"
+  mongodb:
+    container_name: "notification-service-mongodb"
     image: mongo:6.0
     ports:
       - "127.0.0.1:27017:27017"
