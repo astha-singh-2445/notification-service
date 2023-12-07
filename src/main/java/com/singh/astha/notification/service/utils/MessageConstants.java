@@ -9,4 +9,5 @@ public final class MessageConstants {
     private MessageConstants() {
 
     }
+
 }
