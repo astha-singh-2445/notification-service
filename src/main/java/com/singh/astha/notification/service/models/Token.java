@@ -1,4 +1,4 @@
-package com.singh.astha.notification.service.model;
+package com.singh.astha.notification.service.models;
 
 import com.singh.astha.notification.service.enums.DeviceType;
 import lombok.AllArgsConstructor;

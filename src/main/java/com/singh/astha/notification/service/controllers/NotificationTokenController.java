@@ -1,6 +1,6 @@
-package com.singh.astha.notification.service.controller;
+package com.singh.astha.notification.service.controllers;
 
-import com.singh.astha.notification.service.service.NotificationTokenService;
+import com.singh.astha.notification.service.services.NotificationTokenService;
 import com.singh.astha.notification.service.dtos.request.NotificationTokenRequestDto;
 import com.singh.astha.notification.service.dtos.response.NotificationTokenResponseDto;
 import com.singh.astha.notification.service.dtos.response.ResponseWrapper;

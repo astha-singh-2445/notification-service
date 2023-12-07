@@ -1,8 +1,8 @@
 package com.singh.astha.notification.service.dtos.transformers;
 
 import com.singh.astha.notification.service.dtos.request.NotificationTokenRequestDto;
-import com.singh.astha.notification.service.model.NotificationToken;
-import com.singh.astha.notification.service.model.Token;
+import com.singh.astha.notification.service.models.NotificationToken;
+import com.singh.astha.notification.service.models.Token;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;

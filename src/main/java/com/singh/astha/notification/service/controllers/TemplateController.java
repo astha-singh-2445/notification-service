@@ -1,9 +1,9 @@
-package com.singh.astha.notification.service.controller;
+package com.singh.astha.notification.service.controllers;
 
 import com.singh.astha.notification.service.dtos.request.NotificationTemplateRequestDto;
 import com.singh.astha.notification.service.dtos.response.NotificationTemplateResponseDto;
 import com.singh.astha.notification.service.dtos.response.ResponseWrapper;
-import com.singh.astha.notification.service.service.NotificationTemplateService;
+import com.singh.astha.notification.service.services.NotificationTemplateService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

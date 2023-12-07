@@ -1,4 +1,4 @@
-package com.singh.astha.notification.service.controller;
+package com.singh.astha.notification.service.controllers;
 
 import com.singh.astha.notification.service.utils.Constants;
 import org.springframework.http.ResponseEntity;

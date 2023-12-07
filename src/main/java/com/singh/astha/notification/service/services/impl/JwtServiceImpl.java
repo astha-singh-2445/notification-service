@@ -1,4 +1,4 @@
-package com.singh.astha.notification.service.service.impl;
+package com.singh.astha.notification.service.services.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.singh.astha.notification.service.dtos.internal.JwtPayload;
 import com.singh.astha.notification.service.exceptions.ResponseException;
-import com.singh.astha.notification.service.service.JwtService;
+import com.singh.astha.notification.service.services.JwtService;
 import com.singh.astha.notification.service.utils.AppProperties;
 import com.singh.astha.notification.service.utils.Constants;
 import com.singh.astha.notification.service.utils.ErrorMessages;

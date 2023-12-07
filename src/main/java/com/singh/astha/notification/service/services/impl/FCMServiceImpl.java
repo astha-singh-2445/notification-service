@@ -1,7 +1,7 @@
-package com.singh.astha.notification.service.service.impl;
+package com.singh.astha.notification.service.services.impl;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.singh.astha.notification.service.service.FCMService;
+import com.singh.astha.notification.service.services.FCMService;
 import com.singh.astha.notification.service.utils.Constants;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

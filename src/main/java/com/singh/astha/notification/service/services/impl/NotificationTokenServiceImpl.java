@@ -1,13 +1,13 @@
-package com.singh.astha.notification.service.service.impl;
+package com.singh.astha.notification.service.services.impl;
 
 import com.singh.astha.notification.service.dtos.request.NotificationTokenRequestDto;
 import com.singh.astha.notification.service.dtos.transformers.NotificationTokenDtoTransformer;
 import com.singh.astha.notification.service.exceptions.ResponseException;
-import com.singh.astha.notification.service.model.Token;
+import com.singh.astha.notification.service.models.Token;
 import com.singh.astha.notification.service.repositories.NotificationTokenRepository;
-import com.singh.astha.notification.service.service.NotificationTokenService;
+import com.singh.astha.notification.service.services.NotificationTokenService;
 import com.singh.astha.notification.service.utils.Constants;
-import com.singh.astha.notification.service.model.NotificationToken;
+import com.singh.astha.notification.service.models.NotificationToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 

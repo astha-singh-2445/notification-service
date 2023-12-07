@@ -1,4 +1,4 @@
-package com.singh.astha.notification.service.service;
+package com.singh.astha.notification.service.services;
 
 import com.singh.astha.notification.service.dtos.internal.JwtPayload;
 

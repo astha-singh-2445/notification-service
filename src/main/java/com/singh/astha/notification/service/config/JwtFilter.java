@@ -1,7 +1,7 @@
 package com.singh.astha.notification.service.config;
 
 import com.singh.astha.notification.service.dtos.internal.JwtPayload;
-import com.singh.astha.notification.service.service.JwtService;
+import com.singh.astha.notification.service.services.JwtService;
 import com.singh.astha.notification.service.utils.Constants;
 import com.singh.astha.notification.service.utils.MessageConstants;
 import jakarta.servlet.FilterChain;
