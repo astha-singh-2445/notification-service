@@ -34,6 +34,10 @@ public final class Constants {
 
     public static final String AUTHORIZATION = "Authorization";
 
+    public static final String REQUEST_ID = "requestId";
+
+    public static final String REQUEST_ARRIVAL_TIME = "requestArrivalTime";
+
     private Constants() {
     }
 
