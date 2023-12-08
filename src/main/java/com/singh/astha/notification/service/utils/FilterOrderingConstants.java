@@ -4,9 +4,12 @@ import org.springframework.boot.web.servlet.filter.OrderedFilter;
 
 public final class FilterOrderingConstants {
 
-    public static final Integer CORS_FILTER_ORDER = OrderedFilter.HIGHEST_PRECEDENCE;
+    public static final int CORS_FILTER_ORDER = OrderedFilter.HIGHEST_PRECEDENCE;
 
-    public static final Integer REQUEST_ATTRIBUTION_FILTER_ORDER = OrderedFilter.HIGHEST_PRECEDENCE + 1;
+    public static final int REQUEST_ATTRIBUTION_FILTER_ORDER = OrderedFilter.HIGHEST_PRECEDENCE + 1;
 
-    public static final Integer HTTP_LOGGING_FILTER_ORDER = OrderedFilter.HIGHEST_PRECEDENCE + 2;
+    public static final int HTTP_LOGGING_FILTER_ORDER = OrderedFilter.HIGHEST_PRECEDENCE + 2;
+
+    private FilterOrderingConstants() {
+    }
 }
