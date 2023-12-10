@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.UUID;
 
 @Component
@@ -24,7 +25,7 @@ public class RequestAttributionFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
         request.setAttribute(Constants.REQUEST_ID, UUID.randomUUID().toString());
-        request.setAttribute(Constants.REQUEST_ARRIVAL_TIME, System.currentTimeMillis());
+        request.setAttribute(Constants.REQUEST_ARRIVAL_TIME, Instant.now().toEpochMilli());
         filterChain.doFilter(request, response);
     }
 }

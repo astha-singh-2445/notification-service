@@ -1,7 +1,9 @@
 package com.singh.astha.notification.service.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.singh.astha.notification.service.dtos.response.ResponseWrapper;
+import com.singh.astha.notification.service.dtos.response.wrapper.ErrorResponse;
+import com.singh.astha.notification.service.dtos.response.wrapper.ResponseWrapper;
+import com.singh.astha.notification.service.enums.ErrorCode;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.security.service.JwtService;
 import com.singh.astha.notification.service.security.utils.Constants;
@@ -15,6 +17,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class AuthenticationExceptionHandler implements AuthenticationEntryPoint {
@@ -40,21 +43,25 @@ public class AuthenticationExceptionHandler implements AuthenticationEntryPoint 
         response.setHeader(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
         try {
             String authorizationHeader = request.getHeader(Constants.AUTHORIZATION);
+            ErrorResponse errorResponse = ErrorResponse.from(ErrorCode.INPUT_VALIDATION_ERROR);
+            errorResponse.setDetail(ErrorMessages.AUTHORIZATION_HEADER_MUST_BE_PRESENT);
             if (authorizationHeader == null) {
                 StaticMethods.writeResponse(
                         response,
-                        HttpStatus.BAD_REQUEST.value(),
-                        ResponseWrapper.failure(null, ErrorMessages.AUTHORIZATION_HEADER_MUST_BE_PRESENT),
+                        HttpStatus.BAD_REQUEST,
+                        ResponseWrapper.failure(List.of(errorResponse)),
                         objectMapper
                 );
                 return;
             }
             jwtService.verifyAndDecodeToken(authorizationHeader);
         } catch (ResponseException responseException) {
+            ErrorResponse errorResponse = ErrorResponse.from(ErrorCode.INVALID_JWT_TOKEN);
+            errorResponse.setDetail(responseException.getMessage());
             StaticMethods.writeResponse(
                     response,
-                    responseException.getStatus().value(),
-                    ResponseWrapper.failure(responseException.getPayload(), responseException.getMessage()),
+                    responseException.getStatus(),
+                    ResponseWrapper.failure(List.of(errorResponse)),
                     objectMapper
             );
         }

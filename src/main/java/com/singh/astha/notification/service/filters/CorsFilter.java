@@ -7,10 +7,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Component
 @Order(FilterOrderingConstants.CORS_FILTER_ORDER)
@@ -40,10 +42,10 @@ public class CorsFilter extends OncePerRequestFilter {
         response.setHeader(HeaderConstants.X_FRAME_OPTIONS, "DENY");
         response.setHeader(HeaderConstants.X_PERMITTED_CROSS_DOMAIN_POLICIES, "none");
 
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+        if (HttpMethod.OPTIONS.matches(request.getMethod().toUpperCase(Locale.getDefault()))) {
             response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            filterChain.doFilter(request, response);
+            return;
         }
+        filterChain.doFilter(request, response);
     }
 }

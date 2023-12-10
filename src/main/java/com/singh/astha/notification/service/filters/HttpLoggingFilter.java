@@ -26,10 +26,13 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        MDC.put(Constants.REQUEST_ID, (String) request.getAttribute(Constants.REQUEST_ID));
-        filterChain.doFilter(request, response);
-        log.info("Request to {}: {} - {}", request.getMethod(), formURI(request), response.getStatus());
-        MDC.remove(Constants.REQUEST_ID);
+        try {
+            MDC.put(Constants.REQUEST_ID, (String) request.getAttribute(Constants.REQUEST_ID));
+            filterChain.doFilter(request, response);
+        } finally {
+            log.info("Request to {}: {} - {}", request.getMethod(), formURI(request), response.getStatus());
+            MDC.remove(Constants.REQUEST_ID);
+        }
     }
 
     private String formURI(HttpServletRequest request) {
