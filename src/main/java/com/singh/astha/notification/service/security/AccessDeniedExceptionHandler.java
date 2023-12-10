@@ -1,7 +1,7 @@
 package com.singh.astha.notification.service.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.singh.astha.notification.service.dtos.response.ResponseWrapper;
+import com.singh.astha.notification.service.dtos.response.wrapper.ResponseWrapper;
 import com.singh.astha.notification.service.utils.StaticMethods;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,7 +30,6 @@ public class AccessDeniedExceptionHandler implements AccessDeniedHandler {
         if (response.isCommitted()) {
             return;
         }
-        StaticMethods
-                .writeResponse(response, HttpStatus.FORBIDDEN.value(), ResponseWrapper.failure(null), objectMapper);
+        StaticMethods.writeResponse(response, HttpStatus.FORBIDDEN, ResponseWrapper.failure(null), objectMapper);
     }
 }
