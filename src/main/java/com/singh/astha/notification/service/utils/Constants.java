@@ -40,6 +40,10 @@ public final class Constants {
 
     public static final String KEY_VALUE_ERROR_FORMAT = "%s: %s";
 
+    public static final String REQUEST_ID = "requestId";
+
+    public static final String REQUEST_ARRIVAL_TIME = "requestArrivalTime";
+
     private Constants() {
     }
 
