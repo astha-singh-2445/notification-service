@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(responseWrapper, exception.getStatus());
     }
 
-    @ExceptionHandler(value = { NoHandlerFoundException.class })
+    @ExceptionHandler(value = {NoHandlerFoundException.class})
     public ResponseEntity<ResponseWrapper<Void>> handleNoHandlerFoundException() {
         ErrorResponse errorResponse = ErrorResponse.from(ErrorCode.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)

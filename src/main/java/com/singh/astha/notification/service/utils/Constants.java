@@ -44,6 +44,8 @@ public final class Constants {
 
     public static final String REQUEST_ARRIVAL_TIME = "requestArrivalTime";
 
+    public static final String SUCCESSFULLY_SEND_NOTIFICATION = "Successfully send notification";
+
     private Constants() {
     }
 

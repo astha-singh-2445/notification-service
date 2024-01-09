@@ -1,6 +1,6 @@
 package com.singh.astha.notification.service.services.impl;
 
-import com.singh.astha.notification.service.dtos.kafka.NotificationRequest;
+import com.singh.astha.notification.service.dtos.common.NotificationRequest;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.models.NotificationTemplate;
 import com.singh.astha.notification.service.models.NotificationToken;
