@@ -6,4 +6,5 @@ public interface NotificationService {
 
     void sendNotification(NotificationRequest notificationRequest);
 
+    void enqueueToKafka(NotificationRequest notificationRequest);
 }
