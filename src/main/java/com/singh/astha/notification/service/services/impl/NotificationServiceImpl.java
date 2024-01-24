@@ -1,6 +1,6 @@
 package com.singh.astha.notification.service.services.impl;
 
-import com.singh.astha.notification.service.dtos.kafka.NotificationRequest;
+import com.singh.astha.notification.service.dtos.common.NotificationRequest;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.models.NotificationTemplate;
 import com.singh.astha.notification.service.models.NotificationToken;
@@ -10,8 +10,10 @@ import com.singh.astha.notification.service.services.FCMService;
 import com.singh.astha.notification.service.services.NotificationService;
 import com.singh.astha.notification.service.utils.Constants;
 import com.singh.astha.notification.service.utils.ErrorMessages;
+import com.singh.astha.notification.service.utils.JsonUtils;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -27,14 +29,22 @@ public class NotificationServiceImpl implements NotificationService {
 
     private final FCMService fcmService;
 
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    private final JsonUtils jsonUtils;
+
     public NotificationServiceImpl(
             NotificationTokenRepository notificationTokenRepository,
             NotificationTemplateRepository notificationTemplateRepository,
-            FCMService fcmService
+            FCMService fcmService,
+            KafkaTemplate<String, String> kafkaTemplate,
+            JsonUtils jsonUtils
     ) {
         this.notificationTokenRepository = notificationTokenRepository;
         this.notificationTemplateRepository = notificationTemplateRepository;
         this.fcmService = fcmService;
+        this.kafkaTemplate = kafkaTemplate;
+        this.jsonUtils = jsonUtils;
     }
 
     public void sendNotification(NotificationRequest notificationRequest) {
@@ -60,6 +70,14 @@ public class NotificationServiceImpl implements NotificationService {
             );
             fcmService.sendFcmMessage(data);
         });
+    }
+
+    @Override
+    public void enqueueToKafka(NotificationRequest notificationRequest) {
+
+        String data = jsonUtils.writeValueAsString(notificationRequest);
+        String userId = String.valueOf(notificationRequest.getUserId());
+        kafkaTemplate.send(Constants.NOTIFICATION_INGESTION, userId, data);
     }
 
     private Map<String, Object> getNotificationBody(
