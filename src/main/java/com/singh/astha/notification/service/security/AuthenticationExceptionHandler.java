@@ -43,8 +43,8 @@ public class AuthenticationExceptionHandler implements AuthenticationEntryPoint 
         response.setHeader(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
         try {
             String authorizationHeader = request.getHeader(Constants.AUTHORIZATION);
-            ErrorResponse errorResponse = ErrorResponse.from(ErrorCode.INPUT_VALIDATION_ERROR);
-            errorResponse.setDetail(ErrorMessages.AUTHORIZATION_HEADER_MUST_BE_PRESENT);
+            ErrorResponse errorResponse = ErrorResponse
+                    .from(ErrorCode.INPUT_VALIDATION_ERROR, ErrorMessages.AUTHORIZATION_HEADER_MUST_BE_PRESENT);
             if (authorizationHeader == null) {
                 StaticMethods.writeResponse(
                         response,
@@ -56,8 +56,8 @@ public class AuthenticationExceptionHandler implements AuthenticationEntryPoint 
             }
             jwtService.verifyAndDecodeToken(authorizationHeader);
         } catch (ResponseException responseException) {
-            ErrorResponse errorResponse = ErrorResponse.from(ErrorCode.INVALID_JWT_TOKEN);
-            errorResponse.setDetail(responseException.getMessage());
+            ErrorResponse errorResponse = ErrorResponse
+                    .from(ErrorCode.INVALID_JWT_TOKEN, responseException.getMessage());
             StaticMethods.writeResponse(
                     response,
                     responseException.getStatus(),
