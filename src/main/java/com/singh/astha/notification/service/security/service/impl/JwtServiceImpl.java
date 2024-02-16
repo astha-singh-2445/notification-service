@@ -4,12 +4,13 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.singh.astha.notification.service.dtos.response.wrapper.ErrorResponse;
+import com.singh.astha.notification.service.enums.ErrorCode;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.security.dtos.JwtPayload;
 import com.singh.astha.notification.service.security.service.JwtService;
 import com.singh.astha.notification.service.security.utils.AppProperties;
 import com.singh.astha.notification.service.security.utils.Constants;
-import com.singh.astha.notification.service.security.utils.ErrorMessages;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -53,12 +54,12 @@ public class JwtServiceImpl implements JwtService {
                         .roles(decodedJWT.getClaim(Constants.ROLES).asList(String.class))
                         .build();
             } catch (Exception e) {
-                throw new ResponseException(HttpStatus.UNAUTHORIZED, ErrorMessages.INVALID_TOKEN);
+                throw new ResponseException(HttpStatus.UNAUTHORIZED, ErrorResponse.from(ErrorCode.INVALID_TOKEN));
             }
         }
         throw new ResponseException(
                 HttpStatus.BAD_REQUEST,
-                ErrorMessages.AUTHORIZATION_HEADER_MUST_NOT_BE_NULL_AND_MUST_START_BE_BEARER
+                ErrorResponse.from(ErrorCode.AUTHORIZATION_HEADER_MUST_NOT_BE_NULL_AND_MUST_START_BE_BEARER)
         );
     }
 }

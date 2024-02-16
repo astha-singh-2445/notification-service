@@ -28,12 +28,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseWrapper<Object>> handle(
             ResponseException exception
     ) {
-        // FIXME: Update the Response Exception
-        ErrorResponse errorResponse = ErrorResponse.builder().build();
-        errorResponse.setMessage(exception.getMessage());
-        ResponseWrapper<Object> responseWrapper = ResponseWrapper.failure(
-                List.of(errorResponse)
-        );
+        ResponseWrapper<Object> responseWrapper = ResponseWrapper.failure(exception.getErrorResponses());
         return new ResponseEntity<>(responseWrapper, exception.getStatus());
     }
 
@@ -63,8 +58,10 @@ public class GlobalExceptionHandler {
                     )
             );
             errors.forEach((key, value) -> {
-                ErrorResponse errorResponse = ErrorResponse.from(ErrorCode.INPUT_VALIDATION_ERROR);
-                errorResponse.setDetail(String.format(Constants.KEY_VALUE_ERROR_FORMAT, key, value));
+                ErrorResponse errorResponse = ErrorResponse.from(
+                        ErrorCode.INPUT_VALIDATION_ERROR,
+                        String.format(Constants.KEY_VALUE_ERROR_FORMAT, key, value)
+                );
                 errorResponses.add(errorResponse);
             });
         }
@@ -80,11 +77,15 @@ public class GlobalExceptionHandler {
         exception.getBindingResult()
                 .getAllErrors()
                 .forEach(error -> errors.put(((FieldError) error).getField(), error.getDefaultMessage()));
-        List<ErrorResponse> errorResponses = errors.entrySet().stream().map(entry -> {
-            ErrorResponse errorResponse = ErrorResponse.from(ErrorCode.INPUT_VALIDATION_ERROR);
-            errorResponse.setDetail(String.format(Constants.KEY_VALUE_ERROR_FORMAT, entry.getKey(), entry.getValue()));
-            return errorResponse;
-        }).toList();
+        List<ErrorResponse> errorResponses = errors.entrySet()
+                .stream()
+                .map(
+                        entry -> ErrorResponse.from(
+                                ErrorCode.INPUT_VALIDATION_ERROR,
+                                String.format(Constants.KEY_VALUE_ERROR_FORMAT, entry.getKey(), entry.getValue())
+                        )
+                )
+                .toList();
         return ResponseEntity.badRequest().body(ResponseWrapper.failure(errorResponses));
     }
 }
