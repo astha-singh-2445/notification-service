@@ -1,13 +1,14 @@
 package com.singh.astha.notification.service.services.impl;
 
 import com.singh.astha.notification.service.dtos.request.NotificationTokenRequestDto;
+import com.singh.astha.notification.service.dtos.response.wrapper.ErrorResponse;
 import com.singh.astha.notification.service.dtos.transformers.NotificationTokenDtoTransformer;
+import com.singh.astha.notification.service.enums.ErrorCode;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.models.NotificationToken;
 import com.singh.astha.notification.service.models.Token;
 import com.singh.astha.notification.service.repositories.NotificationTokenRepository;
 import com.singh.astha.notification.service.services.NotificationTokenService;
-import com.singh.astha.notification.service.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class NotificationTokenServiceImpl implements NotificationTokenService {
                     );
 
             if (isTokenExist) {
-                throw new ResponseException(HttpStatus.BAD_REQUEST, Constants.TOKEN_ALREADY_EXISTS);
+                throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.TOKEN_ALREADY_EXISTS));
             }
             Token token = new Token();
             token.setCreatedAt(Clock.systemDefaultZone().millis());

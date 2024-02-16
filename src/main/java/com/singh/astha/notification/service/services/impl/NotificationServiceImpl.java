@@ -1,6 +1,8 @@
 package com.singh.astha.notification.service.services.impl;
 
 import com.singh.astha.notification.service.dtos.common.NotificationRequest;
+import com.singh.astha.notification.service.dtos.response.wrapper.ErrorResponse;
+import com.singh.astha.notification.service.enums.ErrorCode;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.models.NotificationTemplate;
 import com.singh.astha.notification.service.models.NotificationToken;
@@ -9,7 +11,6 @@ import com.singh.astha.notification.service.repositories.NotificationTokenReposi
 import com.singh.astha.notification.service.services.FCMService;
 import com.singh.astha.notification.service.services.NotificationService;
 import com.singh.astha.notification.service.utils.Constants;
-import com.singh.astha.notification.service.utils.ErrorMessages;
 import com.singh.astha.notification.service.utils.JsonUtils;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.http.HttpStatus;
@@ -53,13 +54,13 @@ public class NotificationServiceImpl implements NotificationService {
                 notificationRequest.getUserId()
         );
         if (notificationTokenOptional.isEmpty()) {
-            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.USER_TOKEN_NOT_EXIST);
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.USER_TOKEN_NOT_EXIST));
         }
         NotificationToken notificationToken = notificationTokenOptional.get();
         Optional<NotificationTemplate> notificationTemplateOptional = notificationTemplateRepository
                 .findByTemplateId(notificationRequest.getTemplateId());
         if (notificationTemplateOptional.isEmpty()) {
-            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.TEMPLATE_IS_NOT_PRESENT);
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.TEMPLATE_IS_NOT_PRESENT));
         }
         NotificationTemplate notificationTemplate = notificationTemplateOptional.get();
         notificationToken.getTokens().forEach(token -> {

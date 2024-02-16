@@ -17,12 +17,6 @@ public record ErrorResponse(String errorCode, String message, String detail, Str
                 .build();
     }
 
-    public static ErrorResponse from(String message) {
-        return ErrorResponse.builder()
-                .message(message)
-                .build();
-    }
-
     public static ErrorResponse from(ErrorCode errorCode, String detail) {
         return ErrorResponse.builder()
                 .errorCode(errorCode.getCode())

@@ -2,12 +2,13 @@ package com.singh.astha.notification.service.services.impl;
 
 import com.singh.astha.notification.service.dtos.request.NotificationTemplateRequestDto;
 import com.singh.astha.notification.service.dtos.response.NotificationTemplateResponseDto;
+import com.singh.astha.notification.service.dtos.response.wrapper.ErrorResponse;
 import com.singh.astha.notification.service.dtos.transformers.NotificationTemplateTransformer;
+import com.singh.astha.notification.service.enums.ErrorCode;
 import com.singh.astha.notification.service.exceptions.ResponseException;
 import com.singh.astha.notification.service.models.NotificationTemplate;
 import com.singh.astha.notification.service.repositories.NotificationTemplateRepository;
 import com.singh.astha.notification.service.services.NotificationTemplateService;
-import com.singh.astha.notification.service.utils.ErrorMessages;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class NotificationTemplateServiceImpl implements NotificationTemplateServ
                 notificationTemplateRequestDto.getTemplateId()
         );
         if (notificationTemplateOptional.isPresent()) {
-            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.TEMPLATE_ALREADY_EXISTS);
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.TEMPLATE_ALREADY_EXISTS));
         }
         NotificationTemplate notificationTemplate = notificationTemplateTransformer
                 .convertNotificationTemplateRequestDtoToNotificationTemplate(
@@ -55,7 +56,7 @@ public class NotificationTemplateServiceImpl implements NotificationTemplateServ
                 templateId
         );
         if (notificationTemplateOptional.isEmpty()) {
-            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorMessages.TEMPLATE_NOT_EXIST);
+            throw new ResponseException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.TEMPLATE_NOT_EXIST));
         }
         NotificationTemplate notificationTemplate = notificationTemplateOptional.get();
         return notificationTemplateTransformer.convertNotificationTemplateToNotificationTemplateResponseDto(

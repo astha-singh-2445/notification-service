@@ -28,11 +28,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseWrapper<Object>> handle(
             ResponseException exception
     ) {
-        // FIXME: Update the Response Exception
-        ErrorResponse errorResponse = ErrorResponse.from(exception.getMessage());
-        ResponseWrapper<Object> responseWrapper = ResponseWrapper.failure(
-                List.of(errorResponse)
-        );
+        ResponseWrapper<Object> responseWrapper = ResponseWrapper.failure(exception.getErrorResponses());
         return new ResponseEntity<>(responseWrapper, exception.getStatus());
     }
 
